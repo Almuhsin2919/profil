@@ -130,19 +130,20 @@
     <!-- MAIN CONTENT APP AREA -->
     <main class="flex-grow">
         
-        <!-- ================= PAGE 1: BERANDA ================= -->
-        <section id="page-home" class="page-transition block">
+<section id="page-home" class="page-transition block">
             <!-- Hero / Carousel Geser Berita Utama -->
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4">
                 <div class="relative overflow-hidden rounded-3xl bg-slate-950 text-white shadow-2xl h-[450px] sm:min-h-[550px] group">
                     
+                    <!-- -->
                     <!-- Carousel Container (Slides) -->
-                    <div id="hero-carousel" class="relative w-full h-full">
+                    <div id="hero-carousel" class="relative w-full h-full cursor-grab active:cursor-grabbing select-none">
                         <!-- Slide 1 -->
                         <div class="carousel-slide absolute inset-0 opacity-100 transition-all duration-700 ease-in-out">
                             <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1200&auto=format&fit=crop" 
                                  alt="Kegiatan Al Muhsin 1" 
-                                 class="absolute inset-0 h-full w-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700 ease-out">
+                                 class="absolute inset-0 h-full w-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700 ease-out"
+                                 draggable="false">
                             <!-- Overlay Gelap untuk Kontras Membaca Teks -->
                             <div class="absolute inset-0 bg-black/60"></div>
                             <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6 sm:p-12 z-10">
@@ -151,7 +152,7 @@
                                 </h1>
                                 <div class="w-24 h-1.5 bg-accent rounded-full mb-5 shadow-lg shadow-accent/50"></div>
                                 <p class="text-slate-200 text-sm sm:text-xl font-semibold tracking-wide max-w-2xl drop-shadow-md">
-                                    Membentuk Generasi Robbani yang Unggul, Berakhlak Qur'ani, & Mandiri
+                                    Membentuk Generasi Unggul, Berakhlak Qur'ani, & Mandiri
                                 </p>
                             </div>
                         </div>
@@ -160,7 +161,8 @@
                         <div class="carousel-slide absolute inset-0 opacity-0 transition-all duration-700 ease-in-out">
                             <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=1200&auto=format&fit=crop" 
                                  alt="Kegiatan Al Muhsin 2" 
-                                 class="absolute inset-0 h-full w-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700 ease-out">
+                                 class="absolute inset-0 h-full w-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700 ease-out"
+                                 draggable="false">
                             <!-- Overlay Gelap untuk Kontras Membaca Teks -->
                             <div class="absolute inset-0 bg-black/60"></div>
                             <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6 sm:p-12 z-10">
@@ -178,7 +180,8 @@
                         <div class="carousel-slide absolute inset-0 opacity-0 transition-all duration-700 ease-in-out">
                             <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1200&auto=format&fit=crop" 
                                  alt="Kegiatan Al Muhsin 3" 
-                                 class="absolute inset-0 h-full w-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700 ease-out">
+                                 class="absolute inset-0 h-full w-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700 ease-out"
+                                 draggable="false">
                             <!-- Overlay Gelap untuk Kontras Membaca Teks -->
                             <div class="absolute inset-0 bg-black/60"></div>
                             <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6 sm:p-12 z-10">
@@ -192,14 +195,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Carousel Controls (Manual Arrow Buttons) -->
-                    <button onclick="prevSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/40 hover:bg-primary-600/90 text-white flex items-center justify-center transition-all z-10 focus:outline-none">
-                        <i class="fa-solid fa-chevron-left text-lg"></i>
-                    </button>
-                    <button onclick="nextSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/40 hover:bg-primary-600/90 text-white flex items-center justify-center transition-all z-10 focus:outline-none">
-                        <i class="fa-solid fa-chevron-right text-lg"></i>
-                    </button>
 
                     <!-- Carousel Indicators (Dots) -->
                     <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 z-10">
