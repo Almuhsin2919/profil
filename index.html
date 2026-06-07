@@ -9,7 +9,7 @@
     <!-- Font Awesome untuk Ikon Media Sosial & UI -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -17,7 +17,7 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        sans: ['Manrope', 'sans-serif'],
                     },
                     colors: {
                         primary: {
@@ -89,7 +89,7 @@
                             Beranda
                         </button>
                         <button id="nav-archive" onclick="navigateTo('archive')" class="px-4 py-2 text-sm font-semibold rounded-full transition-all duration-300">
-                            Semua Berita
+                            Berita
                         </button>
                         <button id="nav-contact" onclick="scrollToFooter()" class="px-4 py-2 text-sm font-semibold rounded-full transition-all duration-300">
                             Kontak Kami
@@ -122,8 +122,8 @@
         <!-- Mobile Menu Panel -->
         <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 px-4 pt-2 pb-4 space-y-2 shadow-inner">
             <button id="m-nav-home" onclick="navigateTo('home'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md font-semibold transition-all">Beranda</button>
-            <button id="m-nav-archive" onclick="navigateTo('archive'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md font-semibold transition-all">Semua Berita</button>
-            <button id="m-nav-contact" onclick="scrollToFooter(); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md font-semibold transition-all">Hubungi Kami</button>
+            <button id="m-nav-archive" onclick="navigateTo('archive'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md font-semibold transition-all">Berita</button>
+            <button id="m-nav-contact" onclick="scrollToFooter(); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md font-semibold transition-all">Kontak Kami</button>
         </div>
     </header>
 
@@ -336,10 +336,6 @@
                             <span id="detail-date">Tanggal</span>
                         </div>
                         <span>•</span>
-                        <div class="flex items-center gap-1.5">
-                            <i class="fa-regular fa-clock"></i>
-                            <span>Bacaan 4 Menit</span>
-                        </div>
                     </div>
                 </div>
 
@@ -360,14 +356,6 @@
                         <!-- WhatsApp Direct Share -->
                         <button onclick="shareToWhatsApp()" class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-emerald-500 hover:text-white dark:hover:bg-emerald-500 flex items-center justify-center text-slate-600 dark:text-slate-400 transition-colors" title="Bagikan ke WhatsApp">
                             <i class="fa-brands fa-whatsapp text-lg"></i>
-                        </button>
-                        <!-- Instagram Native/System Share -->
-                        <button onclick="shareToInstagramOrSystem()" class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-pink-500 hover:text-white dark:hover:bg-pink-500 flex items-center justify-center text-slate-600 dark:text-slate-400 transition-colors" title="Buka Instagram / Bagikan">
-                            <i class="fa-brands fa-instagram text-lg"></i>
-                        </button>
-                        <!-- TikTok Native/System Share -->
-                        <button onclick="shareToTikTokOrSystem()" class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-black hover:text-white dark:hover:bg-black flex items-center justify-center text-slate-600 dark:text-slate-400 transition-colors" title="Buka TikTok / Bagikan">
-                            <i class="fa-brands fa-tiktok text-lg"></i>
                         </button>
                         <!-- Salin Link Manual -->
                         <button onclick="copyToClipboard()" class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-800 hover:text-white dark:hover:bg-white dark:hover:text-slate-900 flex items-center justify-center text-slate-600 dark:text-slate-400 transition-colors" title="Salin Link">
@@ -397,7 +385,7 @@
     </div>
 
     <!-- ================= FOOTER PREMIUM ================= -->
-    <footer class="bg-slate-900 text-slate-300 border-t-8 border-primary-600 dark:border-primary-700" id="main-footer">
+    <footer class="bg-slate-900 text-slate-300 border-t border-slate-800" id="main-footer">
         <!-- Main Footer Info -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
@@ -420,22 +408,22 @@
                         <h4 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Ikuti Media Sosial Kami</h4>
                         <div class="flex flex-wrap gap-3">
                             <!-- WhatsApp -->
-                            <a href="https://wa.me/6281234567890" target="_blank" rel="noopener noreferrer" 
+                            <a href="https://wa.me/6285232328808" target="_blank" rel="noopener noreferrer" 
                                class="w-12 h-12 rounded-2xl bg-emerald-500/10 hover:bg-emerald-500 text-emerald-400 hover:text-white flex items-center justify-center transition-all duration-300 transform hover:-translate-y-1 shadow-lg shadow-emerald-500/5">
                                 <i class="fa-brands fa-whatsapp text-2xl"></i>
                             </a>
                             <!-- Instagram -->
-                            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" 
+                            <a href="https://instagram.com/tpaalmuhsin" target="_blank" rel="noopener noreferrer" 
                                class="w-12 h-12 rounded-2xl bg-orange-500/10 hover:bg-gradient-to-tr hover:from-yellow-500 hover:via-orange-500 hover:to-red-600 text-orange-400 hover:text-white flex items-center justify-center transition-all duration-300 transform hover:-translate-y-1 shadow-lg shadow-orange-500/5">
                                 <i class="fa-brands fa-instagram text-2xl"></i>
                             </a>
                             <!-- TikTok -->
-                            <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" 
+                            <a href="https://www.tiktok.com/@tpaalmuhsin_" target="_blank" rel="noopener noreferrer" 
                                class="w-12 h-12 rounded-2xl bg-slate-500/15 hover:bg-black text-slate-300 hover:text-white flex items-center justify-center transition-all duration-300 transform hover:-translate-y-1 shadow-lg shadow-slate-500/5">
                                 <i class="fa-brands fa-tiktok text-2xl"></i>
                             </a>
                             <!-- YouTube -->
-                            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" 
+                            <a href="https://www.youtube.com/@tpaalmuhsinbanaran7734" target="_blank" rel="noopener noreferrer" 
                                class="w-12 h-12 rounded-2xl bg-red-500/10 hover:bg-red-600 text-red-400 hover:text-white flex items-center justify-center transition-all duration-300 transform hover:-translate-y-1 shadow-lg shadow-red-500/5">
                                 <i class="fa-brands fa-youtube text-2xl"></i>
                             </a>
@@ -445,56 +433,51 @@
 
                 <!-- Kolom 2: Kontak & Alamat Fisik -->
                 <div class="space-y-6">
-                    <h4 class="text-white font-extrabold text-lg border-b border-slate-800 pb-3">Kantor Yayasan</h4>
+                    <h4 class="text-white font-extrabold text-lg border-b border-slate-800 pb-3">Gedung Yayasan</h4>
                     <ul class="space-y-4 text-sm">
                         <li class="flex items-start gap-3">
                             <div class="w-8 h-8 rounded-lg bg-primary-900/40 flex items-center justify-center text-primary-400 flex-shrink-0 mt-1">
                                 <i class="fa-solid fa-location-dot"></i>
                             </div>
                             <span class="text-slate-400 leading-relaxed">
-                                Kompleks Perguruan Al Muhsin, Jl. KH. Ahmad Dahlan No. 45, Sleman, Yogyakarta, 55511, Indonesia
+                                Bunder Kulon, Banaran, Galur, Kulon Progo, Daerah Istimewa Yogyakarta, 55661, Indonesia
                             </span>
                         </li>
                         <li class="flex items-center gap-3">
                             <div class="w-8 h-8 rounded-lg bg-primary-900/40 flex items-center justify-center text-primary-400 flex-shrink-0">
                                 <i class="fa-solid fa-envelope"></i>
                             </div>
-                            <span class="text-slate-400">kontak@almuhsin.or.id</span>
+                            <span class="text-slate-400">almuhsin.bunder@gmail.com</span>
                         </li>
                         <li class="flex items-center gap-3">
                             <div class="w-8 h-8 rounded-lg bg-primary-900/40 flex items-center justify-center text-primary-400 flex-shrink-0">
                                 <i class="fa-solid fa-phone"></i>
                             </div>
-                            <span class="text-slate-400">+62 274-555-999</span>
+                            <span class="text-slate-400">+62 852 3232 8808</span>
                         </li>
                     </ul>
                 </div>
 
                 <!-- Kolom 3: Google Maps Interaktif -->
                 <div class="space-y-6">
-                    <h4 class="text-white font-extrabold text-lg border-b border-slate-800 pb-3">Peta Lokasi Perguruan</h4>
+                    <h4 class="text-white font-extrabold text-lg border-b border-slate-800 pb-3">Lokasi YPI Al Muhsin</h4>
                     <div class="w-full h-48 rounded-2xl overflow-hidden border border-slate-800 shadow-inner bg-slate-950">
                         <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3953.3644372991823!2d110.363841!3d-7.751111!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a5840b3a39e73%3A0x7d9f783cb2b115eb!2sSleman%2C%20Yogyakarta!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid" 
-                            class="w-full h-full border-0 grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
-                            allowfullscreen="" 
-                            loading="lazy" 
-                            referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
+    src="https://maps.google.com/maps?q=YAYASAN%20PENDIDIKAN%20ISLAM%20AL%20MUHSIN%20Banaran%20Galur%20Kulon%20Progo&t=&z=15&ie=UTF8&iwloc=&output=embed"
+    class="w-full h-full border-0"
+    allowfullscreen=""
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade">
+</iframe>
                     </div>
                 </div>
 
             </div>
 
             <!-- Hak Cipta & Disclaimer -->
-            <div class="border-t border-slate-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
-                <p>&copy; 2026 Yayasan Pendidikan Islam Al Muhsin. Seluruh hak cipta dilindungi undang-undang.</p>
-                <div class="flex space-x-6">
-                    <a href="#" class="hover:text-primary-400 transition-colors">Kebijakan Privasi</a>
-                    <a href="#" class="hover:text-primary-400 transition-colors">Ketentuan Layanan</a>
-                    <a href="#" class="hover:text-primary-400 transition-colors">Pedoman Akademik</a>
-                </div>
-            </div>
+            <div class="border-t border-slate-800 mt-12 pt-8 text-center text-xs text-slate-500">
+    <p>&copy; 2026 Yayasan Pendidikan Islam Al Muhsin. Seluruh hak cipta dilindungi undang-undang.</p>
+</div>
         </div>
     </footer>
 
@@ -1089,36 +1072,6 @@
             const { title, url } = getShareData();
             const text = encodeURIComponent(`Baca berita menarik dari YPI Al Muhsin:\n\n*${title}*\n\nSelengkapnya di: ${url}`);
             window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
-        }
-
-        // Memanfaatkan System native share sheet di handphone untuk membagikan ke Instagram Stories/DM
-        function shareToInstagramOrSystem() {
-            const { title, url } = getShareData();
-            if (navigator.share) {
-                navigator.share({
-                    title: title,
-                    text: 'Baca berita menarik dari YPI Al Muhsin!',
-                    url: url
-                }).catch(err => console.log('Batal berbagi:', err));
-            } else {
-                copyToClipboard();
-                showToast("Tautan disalin! Buka Instagram untuk membagikan.");
-            }
-        }
-
-        // Memanfaatkan System native share sheet di handphone untuk membagikan ke TikTok
-        function shareToTikTokOrSystem() {
-            const { title, url } = getShareData();
-            if (navigator.share) {
-                navigator.share({
-                    title: title,
-                    text: 'Baca berita menarik dari YPI Al Muhsin!',
-                    url: url
-                }).catch(err => console.log('Batal berbagi:', err));
-            } else {
-                copyToClipboard();
-                showToast("Tautan disalin! Buka TikTok untuk membagikan.");
-            }
         }
 
         // Fitur Salin Link ke Clipboard yang menggunakan tautan asli berita aktif
