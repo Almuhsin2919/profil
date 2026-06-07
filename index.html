@@ -357,12 +357,19 @@
                 <div class="border-t border-slate-100 dark:border-slate-800 mt-12 pt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <span class="font-bold text-slate-800 dark:text-white">Bagikan berita ini:</span>
                     <div class="flex gap-2">
-                        <a href="https://wa.me/6281234567890" target="_blank" class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-emerald-500 hover:text-white dark:hover:bg-emerald-500 flex items-center justify-center text-slate-600 dark:text-slate-400 transition-colors" title="Share ke WhatsApp">
+                        <!-- WhatsApp Direct Share -->
+                        <button onclick="shareToWhatsApp()" class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-emerald-500 hover:text-white dark:hover:bg-emerald-500 flex items-center justify-center text-slate-600 dark:text-slate-400 transition-colors" title="Bagikan ke WhatsApp">
                             <i class="fa-brands fa-whatsapp text-lg"></i>
-                        </a>
-                        <a href="https://facebook.com" target="_blank" class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-blue-500 hover:text-white dark:hover:bg-blue-500 flex items-center justify-center text-slate-600 dark:text-slate-400 transition-colors" title="Share ke Facebook">
-                            <i class="fa-brands fa-facebook-f text-base"></i>
-                        </a>
+                        </button>
+                        <!-- Instagram Native/System Share -->
+                        <button onclick="shareToInstagramOrSystem()" class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-pink-500 hover:text-white dark:hover:bg-pink-500 flex items-center justify-center text-slate-600 dark:text-slate-400 transition-colors" title="Buka Instagram / Bagikan">
+                            <i class="fa-brands fa-instagram text-lg"></i>
+                        </button>
+                        <!-- TikTok Native/System Share -->
+                        <button onclick="shareToTikTokOrSystem()" class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-black hover:text-white dark:hover:bg-black flex items-center justify-center text-slate-600 dark:text-slate-400 transition-colors" title="Buka TikTok / Bagikan">
+                            <i class="fa-brands fa-tiktok text-lg"></i>
+                        </button>
+                        <!-- Salin Link Manual -->
                         <button onclick="copyToClipboard()" class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-800 hover:text-white dark:hover:bg-white dark:hover:text-slate-900 flex items-center justify-center text-slate-600 dark:text-slate-400 transition-colors" title="Salin Link">
                             <i class="fa-regular fa-copy text-base"></i>
                         </button>
@@ -493,15 +500,16 @@
 
     <!-- LOGIKAJAVASCRIPT (DATA, SPA NAVIGATION, CAROUSEL, THEME TOGGLE) -->
     <script>
-        // Database Berita Yayasan (Lengkap dengan ID, Kategori, Foto 16:9, Judul, Highlight, Tanggal, dan Artikel Lengkap)
+        // Database Berita Yayasan (Lengkap dengan ID, Kategori, Foto 16:9, Judul, Highlight, Tanggal, dateISO, dan Artikel Lengkap)
         const articlesDatabase = [
             {
                 id: 1,
                 title: "YAYASAN PENDIDIKAN ISLAM AL MUHSIN: Mempersiapkan Generasi Qur'ani, Berakhlak, & Unggul",
                 category: "Profil",
                 image: "https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=800&auto=format&fit=crop",
-                highlight: "Profil lengkap visi, misi, dan program keunggulan terpadu yang disediakan oleh Yayasan Pendidikan Islam Al Muhsin.",
+                highlight: "Profil lengkap visi, misi, and program keunggulan terpadu yang disediakan oleh Yayasan Pendidikan Islam Al Muhsin.",
                 date: "7 Juni 2026",
+                dateISO: "2026-06-07",
                 author: "Humas Al Muhsin",
                 content: `
                     <p>Yayasan Pendidikan Islam Al Muhsin merupakan episentrum pendidikan Islam terpadu yang memadukan keunggulan ilmu syar'i (Imtak) dengan penguasaan sains dan teknologi informasi (Iptek). Sejak awal berdiri, kami memprioritaskan kurikulum yang adaptif dan inklusif bagi seluruh jenjang pendidikan.</p>
@@ -517,6 +525,7 @@
                 image: "https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=800&auto=format&fit=crop",
                 highlight: "Daftarkan putra-putri terbaik Anda sekarang juga. Tersedia kuota beasiswa bagi hafidz Al-Qur'an dan santri berprestasi.",
                 date: "6 Juni 2026",
+                dateISO: "2026-06-06",
                 author: "Panitia PSB",
                 content: `
                     <p>Kabar gembira bagi seluruh wali murid di penjuru nusantara. Panitia Penerimaan Santri Baru (PSB) Yayasan Pendidikan Islam Al Muhsin resmi membuka pendaftaran online gelombang pertama.</p>
@@ -531,6 +540,7 @@
                 image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=800&auto=format&fit=crop",
                 highlight: "Persembahan terbaik di pertengahan tahun, santri Al Muhsin membawa pulang piala bergilir setelah mendominasi kejuaraan.",
                 date: "5 Juni 2026",
+                dateISO: "2026-06-08",
                 author: "Ustadz Hanafi",
                 content: `
                     <p>Alhamdulillahirabbil'alamin. Prestasi membanggakan kembali diukir oleh santri perwakilan Yayasan Pendidikan Islam Al Muhsin dalam ajang tahunan Festival & Olimpiade Pendidikan Islam Se-Provinsi.</p>
@@ -545,6 +555,7 @@
                 image: "https://images.unsplash.com/photo-1431540015161-0bf868a2d407?q=80&w=800&auto=format&fit=crop",
                 highlight: "Menyongsong tantangan zaman, YPI Al Muhsin membekali guru dengan kompetensi AI pendidikan dan LMS canggih.",
                 date: "4 Juni 2026",
+                dateISO: "2026-06-04",
                 author: "Akademik",
                 content: `
                     <p>Guna mempertahankan standar akreditasi A, Yayasan Pendidikan Islam Al Muhsin menggelar Rapat Kerja Mutu Pendidik selama 3 hari berturut-turut.</p>
@@ -558,6 +569,7 @@
                 image: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=800&auto=format&fit=crop",
                 highlight: "Bentuk kepedulian sosial, para santri diajak terjun langsung membagikan bantuan sembako dan layanan kesehatan gratis.",
                 date: "3 Juni 2026",
+                dateISO: "2026-06-03",
                 author: "Kemaslahatan",
                 content: `
                     <p>Yayasan Pendidikan Islam Al Muhsin konsisten menjaga hubungan keharmonisan kemasyarakatan. Melalui divisi kemaslahatan umat, kami menyelenggarakan Bakti Sosial Akbar yang ditujukan bagi keluarga prasejahtera di sekitar lingkungan sekolah.</p>
@@ -571,6 +583,7 @@
                 image: "https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=800&auto=format&fit=crop",
                 highlight: "Progres pembangunan fasilitas ibadah yang megah kini telah mencapai angka 90 persen kemajuan fisik.",
                 date: "2 Juni 2026",
+                dateISO: "2026-06-02",
                 author: "Sarpras",
                 content: `
                     <p>Fasilitas ibadah yang representatif terus diupayakan pihak yayasan. Proyek pembangunan Masjid Kampus 2 Al Muhsin yang memiliki desain arsitektur bernuansa paduan lokal dan timur tengah kini mendekati penyelesaian akhir.</p>
@@ -584,6 +597,7 @@
                 image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=800&auto=format&fit=crop",
                 highlight: "Program santripreneur melatih kemandirian santri dalam mengelola bisnis digital dan kreasi seni kriya.",
                 date: "1 Juni 2026",
+                dateISO: "2026-06-01",
                 author: "Ekraf",
                 content: `
                     <p>Pendidikan di Al Muhsin tidak sebatas teori hafalan. Lewat program unggulan Santripreneur, para santri diajarkan manajemen dasar ekonomi mandiri, pengemasan produk kreatif, hingga strategi penjualan digital marketing ramah syariah.</p>
@@ -597,6 +611,7 @@
                 image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=800&auto=format&fit=crop",
                 highlight: "Langkah progresif memperluas jembatan pendidikan santri menuju panggung perguruan tinggi timur tengah.",
                 date: "28 Mei 2026",
+                dateISO: "2026-05-28",
                 author: "Hublu",
                 content: `
                     <p>Dalam rangka melebarkan kiprah kontribusi akademik global, perwakilan pimpinan tinggi Yayasan Al Muhsin melaksanakan agenda kunjungan kerja resmi ke beberapa universitas di Timur Tengah dan Asia Tenggara.</p>
@@ -604,6 +619,11 @@
                 `
             }
         ];
+
+        // Fungsi pembanding tanggal untuk diurutkan dari yang paling baru (descending)
+        articlesDatabase.sort((a, b) => {
+            return new Date(b.dateISO) - new Date(a.dateISO);
+        });
 
         // --- MANAJEMEN TEMA (DARK/LIGHT MODE) ---
         function initTheme() {
@@ -754,6 +774,8 @@
 
         // State Manajemen Navigasi (SPA)
         let navigationHistory = ['home'];
+        // Menyimpan ID berita yang aktif sedang dibaca
+        let currentArticleId = null;
 
         // Ketika halaman dimuat pertama kali
         window.onload = function () {
@@ -984,6 +1006,7 @@
 
         // Lihat Detail Berita (Mengisi data dinamis ke template detail berita)
         function viewArticle(id) {
+            currentArticleId = id;
             const article = articlesDatabase.find(a => a.id === id);
             if (!article) return;
 
@@ -1054,13 +1077,57 @@
             updateNavbarActiveState('contact');
         }
 
-        // Fitur Salin Link ke Clipboard
+        // Mendapatkan data informasi judul dan tautan berita riil yang sedang dibuka
+        function getShareData() {
+            const title = document.getElementById('detail-title').innerText;
+            const shareUrl = window.location.origin + window.location.pathname + "?news_id=" + (currentArticleId || 1);
+            return { title, url: shareUrl };
+        }
+
+        // Kirim Berita langsung ke Aplikasi WhatsApp
+        function shareToWhatsApp() {
+            const { title, url } = getShareData();
+            const text = encodeURIComponent(`Baca berita menarik dari YPI Al Muhsin:\n\n*${title}*\n\nSelengkapnya di: ${url}`);
+            window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+        }
+
+        // Memanfaatkan System native share sheet di handphone untuk membagikan ke Instagram Stories/DM
+        function shareToInstagramOrSystem() {
+            const { title, url } = getShareData();
+            if (navigator.share) {
+                navigator.share({
+                    title: title,
+                    text: 'Baca berita menarik dari YPI Al Muhsin!',
+                    url: url
+                }).catch(err => console.log('Batal berbagi:', err));
+            } else {
+                copyToClipboard();
+                showToast("Tautan disalin! Buka Instagram untuk membagikan.");
+            }
+        }
+
+        // Memanfaatkan System native share sheet di handphone untuk membagikan ke TikTok
+        function shareToTikTokOrSystem() {
+            const { title, url } = getShareData();
+            if (navigator.share) {
+                navigator.share({
+                    title: title,
+                    text: 'Baca berita menarik dari YPI Al Muhsin!',
+                    url: url
+                }).catch(err => console.log('Batal berbagi:', err));
+            } else {
+                copyToClipboard();
+                showToast("Tautan disalin! Buka TikTok untuk membagikan.");
+            }
+        }
+
+        // Fitur Salin Link ke Clipboard yang menggunakan tautan asli berita aktif
         function copyToClipboard() {
-            const dummyLink = window.location.href + "#news-id-" + Math.floor(Math.random() * 100);
+            const { url } = getShareData();
             
             // Menggunakan execCommand sesuai standard instruksi
             const el = document.createElement('textarea');
-            el.value = dummyLink;
+            el.value = url;
             document.body.appendChild(el);
             el.select();
             document.execCommand('copy');
