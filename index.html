@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YPI Al Muhsin - Yayasan Pendidikan Islam Al Muhsin</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome untuk Ikon Media Sosial & UI -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#f0fdf4',   // Hijau sangat muda
+                            100: '#dcfce7',  // Hijau muda
+                            600: '#16a34a',  // Hijau utama (Forest Green)
+                            700: '#15803d',  // Hijau sedang
+                            800: '#166534',  // Hijau tua
+                            900: '#14532d',  // Hijau hutan gelap
+                        },
+                        accent: {
+                            DEFAULT: '#f97316', // Oranye utama (Vibrant Orange)
+                            50: '#fff7ed',
+                            100: '#ffedd5',
+                            600: '#ea580c',     // Oranye gelap untuk hover
+                            700: '#c2410c',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Aspek Rasio Kustom 16:9 */
+        .aspect-16-9 {
+            aspect-ratio: 16 / 9;
+        }
+        /* Transisi halus untuk navigasi SPA & Tema */
+        .page-transition, body, header, footer, card, section {
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+        }
+        /* Kustom scrollbar bernuansa hijau */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.05);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #16a34a;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #15803d;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 font-sans flex flex-col min-h-screen">
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md sticky top-0 z-50 border-b border-slate-100 dark:border-slate-800 shadow-sm transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo: Dua Baris, Hitam/Putih Saja -->
+                <div class="flex-shrink-0 flex flex-col justify-center cursor-pointer select-none" onclick="navigateTo('home')">
+                    <span class="text-xs sm:text-sm font-bold tracking-wider text-slate-800 dark:text-slate-300 leading-none">
+                        YAYASAN PENDIDIKAN
+                    </span>
+                    <span class="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-none mt-0.5">
+                        ISLAM AL MUHSIN
+                    </span>
+                </div>
+                
+                <!-- Desktop Navigation Menu & Theme Switcher (Dinamis Aktif / Tidak Aktif) -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <nav class="flex space-x-4 font-medium">
+                        <!-- Tombol navigasi yang akan berubah kelas CSS-nya berdasarkan halaman aktif -->
+                        <button id="nav-home" onclick="navigateTo('home')" class="px-4 py-2 text-sm font-semibold rounded-full transition-all duration-300">
+                            Beranda
+                        </button>
+                        <button id="nav-archive" onclick="navigateTo('archive')" class="px-4 py-2 text-sm font-semibold rounded-full transition-all duration-300">
+                            Semua Berita
+                        </button>
+                        <button id="nav-contact" onclick="scrollToFooter()" class="px-4 py-2 text-sm font-semibold rounded-full transition-all duration-300">
+                            Kontak Kami
+                        </button>
+                    </nav>
+
+                    <!-- Divider -->
+                    <span class="h-6 w-[1px] bg-slate-200 dark:bg-slate-700"></span>
+
+                    <!-- Theme Toggle Button (Desktop) -->
+                    <button id="theme-toggle" onclick="toggleTheme()" class="p-2.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all focus:outline-none" aria-label="Toggle Theme">
+                        <i id="theme-icon" class="fa-solid fa-moon text-lg"></i>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu & Theme Controls -->
+                <div class="flex items-center gap-2 md:hidden">
+                    <!-- Theme Toggle Button (Mobile) -->
+                    <button id="theme-toggle-mobile" onclick="toggleTheme()" class="p-2.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all focus:outline-none" aria-label="Toggle Theme">
+                        <i id="theme-icon-mobile" class="fa-solid fa-moon text-lg"></i>
+                    </button>
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-button" class="text-slate-600 dark:text-slate-300 hover:text-primary-700 focus:outline-none p-1" onclick="toggleMobileMenu()">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 px-4 pt-2 pb-4 space-y-2 shadow-inner">
+            <button id="m-nav-home" onclick="navigateTo('home'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md font-semibold transition-all">Beranda</button>
+            <button id="m-nav-archive" onclick="navigateTo('archive'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md font-semibold transition-all">Semua Berita</button>
+            <button id="m-nav-contact" onclick="scrollToFooter(); toggleMobileMenu()" class="block w-full text-left px-3 py-2 rounded-md font-semibold transition-all">Hubungi Kami</button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT APP AREA -->
+    <main class="flex-grow">
+        
+        <!-- ================= PAGE 1: BERANDA ================= -->
+        <section id="page-home" class="page-transition block">
+            <!-- Hero / Carousel Geser Berita Utama -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4">
+                <div class="relative overflow-hidden rounded-3xl bg-slate-950 text-white shadow-2xl h-[450px] sm:min-h-[550px] group">
+                    
+                    <!-- Carousel Container (Slides) -->
+                    <div id="hero-carousel" class="relative w-full h-full">
+                        <!-- Slide 1 -->
+                        <div class="carousel-slide absolute inset-0 opacity-100 transition-all duration-700 ease-in-out">
+                            <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1200&auto=format&fit=crop" 
+                                 alt="Kegiatan Al Muhsin 1" 
+                                 class="absolute inset-0 h-full w-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700 ease-out">
+                            <!-- Overlay Gelap untuk Kontras Membaca Teks -->
+                            <div class="absolute inset-0 bg-black/60"></div>
+                            <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6 sm:p-12 z-10">
+                                <h1 class="text-3xl sm:text-6xl font-black tracking-tight mb-4 leading-tight text-white drop-shadow-xl max-w-4xl uppercase">
+                                    YAYASAN PENDIDIKAN ISLAM AL MUHSIN
+                                </h1>
+                                <div class="w-24 h-1.5 bg-accent rounded-full mb-5 shadow-lg shadow-accent/50"></div>
+                                <p class="text-slate-200 text-sm sm:text-xl font-semibold tracking-wide max-w-2xl drop-shadow-md">
+                                    Membentuk Generasi Robbani yang Unggul, Berakhlak Qur'ani, & Mandiri
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Slide 2 -->
+                        <div class="carousel-slide absolute inset-0 opacity-0 transition-all duration-700 ease-in-out">
+                            <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=1200&auto=format&fit=crop" 
+                                 alt="Kegiatan Al Muhsin 2" 
+                                 class="absolute inset-0 h-full w-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700 ease-out">
+                            <!-- Overlay Gelap untuk Kontras Membaca Teks -->
+                            <div class="absolute inset-0 bg-black/60"></div>
+                            <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6 sm:p-12 z-10">
+                                <h1 class="text-3xl sm:text-6xl font-black tracking-tight mb-4 leading-tight text-white drop-shadow-xl max-w-4xl uppercase">
+                                    YAYASAN PENDIDIKAN ISLAM AL MUHSIN
+                                </h1>
+                                <div class="w-24 h-1.5 bg-accent rounded-full mb-5 shadow-lg shadow-accent/50"></div>
+                                <p class="text-slate-200 text-sm sm:text-xl font-semibold tracking-wide max-w-2xl drop-shadow-md">
+                                    Pendidikan Islam Terpadu dan Kurikulum Unggulan Berasrama
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Slide 3 -->
+                        <div class="carousel-slide absolute inset-0 opacity-0 transition-all duration-700 ease-in-out">
+                            <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1200&auto=format&fit=crop" 
+                                 alt="Kegiatan Al Muhsin 3" 
+                                 class="absolute inset-0 h-full w-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700 ease-out">
+                            <!-- Overlay Gelap untuk Kontras Membaca Teks -->
+                            <div class="absolute inset-0 bg-black/60"></div>
+                            <div class="absolute inset-0 flex flex-col justify-center items-center text-center p-6 sm:p-12 z-10">
+                                <h1 class="text-3xl sm:text-6xl font-black tracking-tight mb-4 leading-tight text-white drop-shadow-xl max-w-4xl uppercase">
+                                    YAYASAN PENDIDIKAN ISLAM AL MUHSIN
+                                </h1>
+                                <div class="w-24 h-1.5 bg-accent rounded-full mb-5 shadow-lg shadow-accent/50"></div>
+                                <p class="text-slate-200 text-sm sm:text-xl font-semibold tracking-wide max-w-2xl drop-shadow-md">
+                                    Melahirkan Santri Pintar secara Akademik & Kokoh dalam Aqidah
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Carousel Controls (Manual Arrow Buttons) -->
+                    <button onclick="prevSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/40 hover:bg-primary-600/90 text-white flex items-center justify-center transition-all z-10 focus:outline-none">
+                        <i class="fa-solid fa-chevron-left text-lg"></i>
+                    </button>
+                    <button onclick="nextSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/40 hover:bg-primary-600/90 text-white flex items-center justify-center transition-all z-10 focus:outline-none">
+                        <i class="fa-solid fa-chevron-right text-lg"></i>
+                    </button>
+
+                    <!-- Carousel Indicators (Dots) -->
+                    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 z-10">
+                        <span onclick="setSlide(0)" class="carousel-dot w-3 h-3 rounded-full bg-white/50 hover:bg-white cursor-pointer transition-all active"></span>
+                        <span onclick="setSlide(1)" class="carousel-dot w-3 h-3 rounded-full bg-white/50 hover:bg-white cursor-pointer transition-all"></span>
+                        <span onclick="setSlide(2)" class="carousel-dot w-3 h-3 rounded-full bg-white/50 hover:bg-white cursor-pointer transition-all"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bagian Dua Kolom: 6 Berita Terbaru & Sidebar Arsip -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Sisi Kiri: 6 Berita Terbaru (Grid 2 Kolom di Desktop) -->
+                    <div class="lg:col-span-2">
+                        <div class="flex items-center justify-between mb-8">
+                            <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white border-l-4 border-primary-600 pl-4">
+                                Berita Terbaru
+                            </h2>
+                            <span class="h-1 flex-grow mx-4 bg-slate-100 dark:bg-slate-800 hidden sm:block rounded"></span>
+                            <span class="text-sm font-semibold text-primary-600 dark:text-primary-400 uppercase tracking-wider">Update Hari Ini</span>
+                        </div>
+
+                        <!-- Grid Berita Terbaru (6 Berita) -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="latest-news-container">
+                            <!-- JS akan merender 6 Berita Terbaru di sini -->
+                        </div>
+                    </div>
+
+                    <!-- Sisi Kanan: Sidebar Arsip Semua Berita (Selengkapnya) -->
+                    <div class="lg:col-span-1">
+                        <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 shadow-sm border border-slate-100 dark:border-slate-800 sticky top-24">
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white border-b border-slate-100 dark:border-slate-800 pb-4 mb-4 flex items-center justify-between">
+                                <span>Arsip Berita</span>
+                                <button onclick="navigateTo('archive')" class="text-xs font-bold text-accent hover:text-accent-600 flex items-center gap-1 hover:underline transition-all">
+                                    Selengkapnya <i class="fa-solid fa-arrow-right"></i>
+                                </button>
+                            </h3>
+
+                            <!-- Mini Search di Sidebar -->
+                            <div class="relative mb-6">
+                                <input type="text" id="sidebar-search" placeholder="Cari berita yayasan..." 
+                                       class="w-full bg-slate-50 dark:bg-slate-800 text-sm border-0 focus:ring-2 focus:ring-primary-600 rounded-2xl py-3 pl-4 pr-10 outline-none transition-all dark:text-white"
+                                       onkeyup="handleSidebarSearch(event)">
+                                <button class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-primary-600" onclick="triggerSidebarSearch()">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </button>
+                            </div>
+
+                            <!-- Daftar Semua Berita (Vertikal Ringkas) -->
+                            <div class="space-y-4 max-h-[450px] overflow-y-auto pr-2 custom-scrollbar" id="sidebar-archive-container">
+                                <!-- JS akan merender seluruh daftar berita di sini -->
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PAGE 2: SEMUA BERITA (ARSIP LENGKAP) ================= -->
+        <section id="page-archive" class="page-transition hidden">
+            <div class="bg-gradient-to-r from-primary-900 to-primary-800 dark:from-slate-950 dark:to-slate-900 text-white py-16 px-4">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <h1 class="text-4xl sm:text-5xl font-black mb-4 tracking-tight">Semua Arsip Berita</h1>
+                    <p class="text-emerald-100 dark:text-slate-400 text-lg max-w-2xl mx-auto">Temukan seluruh informasi menarik, berita harian, dan ulasan mendalam yang pernah diterbitkan.</p>
+                </div>
+            </div>
+
+            <!-- Kontrol Filter & Pencarian Lengkap -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 border-b border-slate-100 dark:border-slate-800">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <!-- Kategori -->
+                    <div class="flex flex-wrap gap-2" id="category-filters">
+                        <!-- JS akan mengisinya -->
+                    </div>
+                    <!-- Kolom Pencarian Besar -->
+                    <div class="relative w-full md:w-80">
+                        <input type="text" id="archive-search" placeholder="Cari judul atau topik..." 
+                               class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 focus:ring-2 focus:ring-primary-600 rounded-2xl py-3 pl-4 pr-10 outline-none shadow-sm transition-all text-sm dark:text-white"
+                               oninput="filterArchive()">
+                        <i class="fa-solid fa-magnifying-glass absolute right-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grid Seluruh Berita -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="archive-news-grid">
+                    <!-- JS akan merender hasil filter/pencarian seluruh berita di sini -->
+                </div>
+                <div id="no-news-found" class="hidden text-center py-20">
+                    <i class="fa-solid fa-newspaper text-6xl text-slate-300 dark:text-slate-700 mb-4"></i>
+                    <p class="text-slate-500 dark:text-slate-400 font-medium text-lg">Maaf, tidak ada berita yang cocok dengan pencarian Anda.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PAGE 3: TEMPLATE DETAIL BERITA ================= -->
+        <section id="page-detail" class="page-transition hidden">
+            <!-- Breadcrumbs -->
+            <div class="bg-slate-100 dark:bg-slate-900 py-4 px-4">
+                <div class="max-w-4xl mx-auto flex items-center space-x-2 text-xs sm:text-sm font-medium text-slate-500 dark:text-slate-400">
+                    <span class="hover:text-primary-700 cursor-pointer" onclick="navigateTo('home')">Beranda</span>
+                    <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    <span class="hover:text-primary-700 cursor-pointer" onclick="navigateTo('archive')">Semua Berita</span>
+                    <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    <span class="text-slate-800 dark:text-white truncate" id="detail-breadcrumb-title">Judul Berita</span>
+                </div>
+            </div>
+
+            <!-- Detail Konten Berita -->
+            <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <!-- Tombol Kembali -->
+                <button onclick="navigateBack()" class="mb-8 flex items-center gap-2 text-sm font-bold text-slate-600 dark:text-slate-400 hover:text-primary-700 dark:hover:text-primary-400 transition-colors group">
+                    <i class="fa-solid fa-arrow-left group-hover:-translate-x-1 transition-transform"></i> Kembali ke Halaman Sebelumnya
+                </button>
+
+                <!-- Metadata Berita -->
+                <div class="space-y-4 mb-8">
+                    <span id="detail-category" class="bg-primary-100 dark:bg-primary-950 text-primary-800 dark:text-primary-200 text-xs font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full w-fit">Kategori</span>
+                    <h1 id="detail-title" class="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
+                        Judul Berita Yang Sangat Menarik dan Informatif
+                    </h1>
+                    <div class="flex flex-wrap items-center gap-4 text-slate-500 dark:text-slate-400 text-sm border-y border-slate-100 dark:border-slate-800 py-3">
+                        <div class="flex items-center gap-2">
+                            <div class="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 font-bold text-xs" id="detail-author-avatar">R</div>
+                            <span class="font-semibold text-slate-800 dark:text-slate-200" id="detail-author">Redaksi Al Muhsin</span>
+                        </div>
+                        <span>•</span>
+                        <div class="flex items-center gap-1.5">
+                            <i class="fa-regular fa-calendar"></i>
+                            <span id="detail-date">Tanggal</span>
+                        </div>
+                        <span>•</span>
+                        <div class="flex items-center gap-1.5">
+                            <i class="fa-regular fa-clock"></i>
+                            <span>Bacaan 4 Menit</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Foto Utama (Rasio Aspek 16:9 yang Sempurna) -->
+                <div class="aspect-16-9 w-full overflow-hidden rounded-3xl shadow-lg mb-8 bg-slate-100 dark:bg-slate-900">
+                    <img id="detail-image" src="" alt="Gambar Berita Utama" class="w-full h-full object-cover">
+                </div>
+
+                <!-- Isi Artikel Berita (Tipografi Premium) -->
+                <div class="prose dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 text-base sm:text-lg leading-relaxed space-y-6" id="detail-content">
+                    <!-- JS akan merender paragraf di sini -->
+                </div>
+
+                <!-- Share Widget -->
+                <div class="border-t border-slate-100 dark:border-slate-800 mt-12 pt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <span class="font-bold text-slate-800 dark:text-white">Bagikan berita ini:</span>
+                    <div class="flex gap-2">
+                        <a href="https://wa.me/6281234567890" target="_blank" class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-emerald-500 hover:text-white dark:hover:bg-emerald-500 flex items-center justify-center text-slate-600 dark:text-slate-400 transition-colors" title="Share ke WhatsApp">
+                            <i class="fa-brands fa-whatsapp text-lg"></i>
+                        </a>
+                        <a href="https://facebook.com" target="_blank" class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-blue-500 hover:text-white dark:hover:bg-blue-500 flex items-center justify-center text-slate-600 dark:text-slate-400 transition-colors" title="Share ke Facebook">
+                            <i class="fa-brands fa-facebook-f text-base"></i>
+                        </a>
+                        <button onclick="copyToClipboard()" class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-800 hover:text-white dark:hover:bg-white dark:hover:text-slate-900 flex items-center justify-center text-slate-600 dark:text-slate-400 transition-colors" title="Salin Link">
+                            <i class="fa-regular fa-copy text-base"></i>
+                        </button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Bagian Rekomendasi Berita Serupa -->
+            <div class="bg-slate-50 dark:bg-slate-900/40 border-t border-slate-100 dark:border-slate-800 py-16">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-8">Rekomendasi Untuk Anda</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="detail-related-news">
+                        <!-- JS akan menyajikan 3 berita rekomendasi -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- TOAST NOTIFICATION FOR USER ACTIONS -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 bg-slate-900 dark:bg-slate-800 text-white px-5 py-3 rounded-2xl shadow-xl transform translate-y-24 opacity-0 transition-all duration-300 flex items-center gap-3">
+        <i class="fa-solid fa-circle-check text-emerald-400"></i>
+        <span id="toast-message" class="text-sm font-medium">Link berhasil disalin!</span>
+    </div>
+
+    <!-- ================= FOOTER PREMIUM ================= -->
+    <footer class="bg-slate-900 text-slate-300 border-t-8 border-primary-600 dark:border-primary-700" id="main-footer">
+        <!-- Main Footer Info -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                
+                <!-- Kolom 1: Tentang & Sosial Media -->
+                <div class="space-y-6">
+                    <div>
+                        <!-- Logo Putih Di Footer -->
+                        <div class="flex flex-col select-none mb-4">
+                            <span class="text-xs sm:text-sm font-bold tracking-wider text-slate-400 leading-none">YAYASAN PENDIDIKAN</span>
+                            <span class="text-xl font-extrabold text-white tracking-tight leading-none mt-1">ISLAM AL MUHSIN</span>
+                        </div>
+                        <p class="text-slate-400 leading-relaxed text-sm">
+                            Yayasan Pendidikan Islam Al Muhsin berdedikasi tinggi untuk memberikan pendidikan berbasis moral keagamaan Islam, akhlak karimah, kedisiplinan, serta penguasaan sains dan teknologi terkini.
+                        </p>
+                    </div>
+
+                    <!-- Sosial Media Berwarna & Interaktif -->
+                    <div>
+                        <h4 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Ikuti Media Sosial Kami</h4>
+                        <div class="flex flex-wrap gap-3">
+                            <!-- WhatsApp -->
+                            <a href="https://wa.me/6281234567890" target="_blank" rel="noopener noreferrer" 
+                               class="w-12 h-12 rounded-2xl bg-emerald-500/10 hover:bg-emerald-500 text-emerald-400 hover:text-white flex items-center justify-center transition-all duration-300 transform hover:-translate-y-1 shadow-lg shadow-emerald-500/5">
+                                <i class="fa-brands fa-whatsapp text-2xl"></i>
+                            </a>
+                            <!-- Instagram -->
+                            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" 
+                               class="w-12 h-12 rounded-2xl bg-orange-500/10 hover:bg-gradient-to-tr hover:from-yellow-500 hover:via-orange-500 hover:to-red-600 text-orange-400 hover:text-white flex items-center justify-center transition-all duration-300 transform hover:-translate-y-1 shadow-lg shadow-orange-500/5">
+                                <i class="fa-brands fa-instagram text-2xl"></i>
+                            </a>
+                            <!-- TikTok -->
+                            <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" 
+                               class="w-12 h-12 rounded-2xl bg-slate-500/15 hover:bg-black text-slate-300 hover:text-white flex items-center justify-center transition-all duration-300 transform hover:-translate-y-1 shadow-lg shadow-slate-500/5">
+                                <i class="fa-brands fa-tiktok text-2xl"></i>
+                            </a>
+                            <!-- YouTube -->
+                            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" 
+                               class="w-12 h-12 rounded-2xl bg-red-500/10 hover:bg-red-600 text-red-400 hover:text-white flex items-center justify-center transition-all duration-300 transform hover:-translate-y-1 shadow-lg shadow-red-500/5">
+                                <i class="fa-brands fa-youtube text-2xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kolom 2: Kontak & Alamat Fisik -->
+                <div class="space-y-6">
+                    <h4 class="text-white font-extrabold text-lg border-b border-slate-800 pb-3">Kantor Yayasan</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li class="flex items-start gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-primary-900/40 flex items-center justify-center text-primary-400 flex-shrink-0 mt-1">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <span class="text-slate-400 leading-relaxed">
+                                Kompleks Perguruan Al Muhsin, Jl. KH. Ahmad Dahlan No. 45, Sleman, Yogyakarta, 55511, Indonesia
+                            </span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-primary-900/40 flex items-center justify-center text-primary-400 flex-shrink-0">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <span class="text-slate-400">kontak@almuhsin.or.id</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-primary-900/40 flex items-center justify-center text-primary-400 flex-shrink-0">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <span class="text-slate-400">+62 274-555-999</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Kolom 3: Google Maps Interaktif -->
+                <div class="space-y-6">
+                    <h4 class="text-white font-extrabold text-lg border-b border-slate-800 pb-3">Peta Lokasi Perguruan</h4>
+                    <div class="w-full h-48 rounded-2xl overflow-hidden border border-slate-800 shadow-inner bg-slate-950">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3953.3644372991823!2d110.363841!3d-7.751111!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a5840b3a39e73%3A0x7d9f783cb2b115eb!2sSleman%2C%20Yogyakarta!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid" 
+                            class="w-full h-full border-0 grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Hak Cipta & Disclaimer -->
+            <div class="border-t border-slate-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
+                <p>&copy; 2026 Yayasan Pendidikan Islam Al Muhsin. Seluruh hak cipta dilindungi undang-undang.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-primary-400 transition-colors">Kebijakan Privasi</a>
+                    <a href="#" class="hover:text-primary-400 transition-colors">Ketentuan Layanan</a>
+                    <a href="#" class="hover:text-primary-400 transition-colors">Pedoman Akademik</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LOGIKAJAVASCRIPT (DATA, SPA NAVIGATION, CAROUSEL, THEME TOGGLE) -->
+    <script>
+        // Database Berita Yayasan (Lengkap dengan ID, Kategori, Foto 16:9, Judul, Highlight, Tanggal, dan Artikel Lengkap)
+        const articlesDatabase = [
+            {
+                id: 1,
+                title: "YAYASAN PENDIDIKAN ISLAM AL MUHSIN: Mempersiapkan Generasi Qur'ani, Berakhlak, & Unggul",
+                category: "Profil",
+                image: "https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=800&auto=format&fit=crop",
+                highlight: "Profil lengkap visi, misi, dan program keunggulan terpadu yang disediakan oleh Yayasan Pendidikan Islam Al Muhsin.",
+                date: "7 Juni 2026",
+                author: "Humas Al Muhsin",
+                content: `
+                    <p>Yayasan Pendidikan Islam Al Muhsin merupakan episentrum pendidikan Islam terpadu yang memadukan keunggulan ilmu syar'i (Imtak) dengan penguasaan sains dan teknologi informasi (Iptek). Sejak awal berdiri, kami memprioritaskan kurikulum yang adaptif dan inklusif bagi seluruh jenjang pendidikan.</p>
+                    <p>Melalui asrama santri yang bersih, bimbingan tahfidz intensif, serta pembiasaan berbahasa Arab dan Inggris dalam aktivitas sehari-hari, santri disiapkan tidak hanya untuk melanjutkan pendidikan di perguruan tinggi terbaik nasional maupun timur tengah, tetapi juga siap bersaing secara global.</p>
+                    <blockquote class="border-l-4 border-primary-600 pl-4 italic my-6 text-slate-800 dark:text-slate-200 bg-slate-50 dark:bg-slate-800 p-4 rounded-r-xl">"Di Al Muhsin, kami memandang anak didik bukan sebagai botol kosong yang siap diisi air, melainkan sebagai api obor keimanan dan kecerdasan yang siap kita sulut untuk menerangi masa depan peradaban," - Ketua Yayasan YPI Al Muhsin.</blockquote>
+                    <p>Fasilitas modern seperti laboratorium multimedia, lapangan olahraga terintegrasi, perpustakaan konvensional & digital, serta masjid pusat berkapasitas besar menjadi penopang utama kenyamanan proses kegiatan belajar mengajar.</p>
+                `
+            },
+            {
+                id: 2,
+                title: "Penerimaan Santri & Siswa Baru Tahun Ajaran 2026/2027 Resmi Dibuka",
+                category: "Pendaftaran",
+                image: "https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=800&auto=format&fit=crop",
+                highlight: "Daftarkan putra-putri terbaik Anda sekarang juga. Tersedia kuota beasiswa bagi hafidz Al-Qur'an dan santri berprestasi.",
+                date: "6 Juni 2026",
+                author: "Panitia PSB",
+                content: `
+                    <p>Kabar gembira bagi seluruh wali murid di penjuru nusantara. Panitia Penerimaan Santri Baru (PSB) Yayasan Pendidikan Islam Al Muhsin resmi membuka pendaftaran online gelombang pertama.</p>
+                    <p>Untuk menjaga rasio kualitas pembelajaran, kuota pendaftaran tahun ini dibatasi sesuai dengan kapasitas asrama baru yang selesai dibangun awal bulan lalu. Pendaftaran dapat diakses secara mudah melalui portal pendaftaran resmi maupun kunjungan langsung ke sekretariat PSB.</p>
+                    <p>Tersedia beasiswa penuh bagi calon santri berprestasi tingkat nasional serta skema potongan biaya khusus bagi yatim piatu dan santri berprestasi tahfidz minimal 10 Juz. Segera lakukan konsultasi dan amankan kuota putra-putri Anda.</p>
+                `
+            },
+            {
+                id: 3,
+                title: "Santri Al Muhsin Sabet Juara Umum Olimpiade Sains & Kitab Kuning Tingkat Provinsi",
+                category: "Prestasi",
+                image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=800&auto=format&fit=crop",
+                highlight: "Persembahan terbaik di pertengahan tahun, santri Al Muhsin membawa pulang piala bergilir setelah mendominasi kejuaraan.",
+                date: "5 Juni 2026",
+                author: "Ustadz Hanafi",
+                content: `
+                    <p>Alhamdulillahirabbil'alamin. Prestasi membanggakan kembali diukir oleh santri perwakilan Yayasan Pendidikan Islam Al Muhsin dalam ajang tahunan Festival & Olimpiade Pendidikan Islam Se-Provinsi.</p>
+                    <p>Para delegasi santri berhasil menyabet medali emas di bidang Fisika Terapan, Matematika Kompetitif, serta cabang Musabaqah Qira'atil Kutub (MQK) tingkat ula dan wustha. Hasil akumulatif mendaulat Al Muhsin sebagai juara umum tahun ini.</p>
+                    <p>Ustadz Hanafi selaku koordinator pendamping menyatakan bahwa kunci kesuksesan para santri terletak pada ketekunan muraja'ah ilmiah serta program belajar malam terstruktur yang rutin diselenggarakan pihak asrama.</p>
+                `
+            },
+            {
+                id: 4,
+                title: "Rapat Kerja Tahunan: Meningkatkan Mutu Pendidikan Berbasis Kecerdasan Digital",
+                category: "Kegiatan",
+                image: "https://images.unsplash.com/photo-1431540015161-0bf868a2d407?q=80&w=800&auto=format&fit=crop",
+                highlight: "Menyongsong tantangan zaman, YPI Al Muhsin membekali guru dengan kompetensi AI pendidikan dan LMS canggih.",
+                date: "4 Juni 2026",
+                author: "Akademik",
+                content: `
+                    <p>Guna mempertahankan standar akreditasi A, Yayasan Pendidikan Islam Al Muhsin menggelar Rapat Kerja Mutu Pendidik selama 3 hari berturut-turut.</p>
+                    <p>Fokus utama pelatihan kerja tahun ini berpusat pada pemanfaatan asisten kecerdasan buatan (AI) secara etis untuk mempermudah guru merancang media pembelajaran interaktif yang disukai anak zaman sekarang. Yayasan juga mengenalkan platform Learning Management System (LMS) Al Muhsin Smart yang terintegrasi penuh.</p>
+                `
+            },
+            {
+                id: 5,
+                title: "Bakti Sosial Akbar: YPI Al Muhsin Salurkan 1.000 Paket Sembako ke Warga Sekitar",
+                category: "Sosial",
+                image: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=800&auto=format&fit=crop",
+                highlight: "Bentuk kepedulian sosial, para santri diajak terjun langsung membagikan bantuan sembako dan layanan kesehatan gratis.",
+                date: "3 Juni 2026",
+                author: "Kemaslahatan",
+                content: `
+                    <p>Yayasan Pendidikan Islam Al Muhsin konsisten menjaga hubungan keharmonisan kemasyarakatan. Melalui divisi kemaslahatan umat, kami menyelenggarakan Bakti Sosial Akbar yang ditujukan bagi keluarga prasejahtera di sekitar lingkungan sekolah.</p>
+                    <p>Selain penyerahan 1.000 paket bahan pokok pangan pokok, yayasan berkolaborasi dengan jajaran dokter alumni mendirikan posko pengobatan umum gratis dan konsultasi kesehatan keluarga secara cuma-cuma.</p>
+                `
+            },
+            {
+                id: 6,
+                title: "Pembangunan Masjid Kampus 2 Al Muhsin Mulai Memasuki Tahap Finisihing",
+                category: "Pembangunan",
+                image: "https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=800&auto=format&fit=crop",
+                highlight: "Progres pembangunan fasilitas ibadah yang megah kini telah mencapai angka 90 persen kemajuan fisik.",
+                date: "2 Juni 2026",
+                author: "Sarpras",
+                content: `
+                    <p>Fasilitas ibadah yang representatif terus diupayakan pihak yayasan. Proyek pembangunan Masjid Kampus 2 Al Muhsin yang memiliki desain arsitektur bernuansa paduan lokal dan timur tengah kini mendekati penyelesaian akhir.</p>
+                    <p>Hingga pekan ini, proses pengerjaan interior kaligrafi dinding masjid, pemasangan marmer lantai, serta sistem pendingin udara ramah lingkungan hampir sepenuhnya rampung. Masjid ini diharapkan dapat digunakan perdana pada awal semester depan.</p>
+                `
+            },
+            {
+                id: 7,
+                title: "Pelatihan Wirausaha Kreatif: Mencetak Santri Al Muhsin yang Mandiri Finansial",
+                category: "Ekskul",
+                image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=800&auto=format&fit=crop",
+                highlight: "Program santripreneur melatih kemandirian santri dalam mengelola bisnis digital dan kreasi seni kriya.",
+                date: "1 Juni 2026",
+                author: "Ekraf",
+                content: `
+                    <p>Pendidikan di Al Muhsin tidak sebatas teori hafalan. Lewat program unggulan Santripreneur, para santri diajarkan manajemen dasar ekonomi mandiri, pengemasan produk kreatif, hingga strategi penjualan digital marketing ramah syariah.</p>
+                    <p>Berbekal pelatihan praktis ini, lulusan Al Muhsin diharapkan tumbuh menjadi sosok bermental tangguh yang tidak hanya siap mencari peluang kerja, tetapi juga terampil membuka lapangan usaha kreatif bagi masyarakat luas.</p>
+                `
+            },
+            {
+                id: 8,
+                title: "Kunjungan Studi Banding Internasional: Menjalin Kemitraan Bersama Universitas Ternama",
+                category: "Kerjasama",
+                image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=800&auto=format&fit=crop",
+                highlight: "Langkah progresif memperluas jembatan pendidikan santri menuju panggung perguruan tinggi timur tengah.",
+                date: "28 Mei 2026",
+                author: "Hublu",
+                content: `
+                    <p>Dalam rangka melebarkan kiprah kontribusi akademik global, perwakilan pimpinan tinggi Yayasan Al Muhsin melaksanakan agenda kunjungan kerja resmi ke beberapa universitas di Timur Tengah dan Asia Tenggara.</p>
+                    <p>Kerjasama luar biasa ini membuahkan hasil berupa penandatanganan nota kesepakatan jaminan beasiswa jalur khusus bagi santri lulusan terbaik Al Muhsin untuk langsung berkuliah di sana tanpa seleksi berkas berbelit.</p>
+                `
+            }
+        ];
+
+        // --- MANAJEMEN TEMA (DARK/LIGHT MODE) ---
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                document.documentElement.classList.add('dark');
+                updateThemeIcons(true);
+            } else {
+                document.documentElement.classList.remove('dark');
+                updateThemeIcons(false);
+            }
+        }
+
+        function toggleTheme() {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            updateThemeIcons(isDark);
+        }
+
+        function updateThemeIcons(isDark) {
+            const iconDesktop = document.getElementById('theme-icon');
+            const iconMobile = document.getElementById('theme-icon-mobile');
+            
+            if (isDark) {
+                iconDesktop.className = 'fa-solid fa-sun text-lg text-yellow-400';
+                iconMobile.className = 'fa-solid fa-sun text-lg text-yellow-400';
+            } else {
+                iconDesktop.className = 'fa-solid fa-moon text-lg text-slate-600';
+                iconMobile.className = 'fa-solid fa-moon text-lg text-slate-600';
+            }
+        }
+
+        // --- MANAJEMEN NAVIGASI AKTIF (DYNAMIC NAVBAR ACTIVE STATES) ---
+        function updateNavbarActiveState(activeId) {
+            // Definisikan tombol menu desktop
+            const btnHome = document.getElementById('nav-home');
+            const btnArchive = document.getElementById('nav-archive');
+            const btnContact = document.getElementById('nav-contact');
+
+            // Definisikan tombol menu mobile
+            const mHome = document.getElementById('m-nav-home');
+            const mArchive = document.getElementById('m-nav-archive');
+            const mContact = document.getElementById('m-nav-contact');
+
+            // Kelas CSS untuk tombol AKTIF (Desain Kapsul Hijau Terang Premium)
+            const activeDesktopClasses = ['bg-primary-100', 'dark:bg-primary-900/40', 'text-primary-800', 'dark:text-primary-200', 'shadow-sm'];
+            const inactiveDesktopClasses = ['text-slate-600', 'dark:text-slate-300', 'hover:text-primary-700', 'dark:hover:text-primary-400', 'hover:bg-slate-100', 'dark:hover:bg-slate-800/60'];
+
+            // Kelas CSS untuk menu mobile AKTIF / TIDAK AKTIF
+            const activeMobileClasses = ['bg-primary-50', 'dark:bg-primary-900/20', 'text-primary-700', 'dark:text-primary-300'];
+            const inactiveMobileClasses = ['text-slate-700', 'dark:text-slate-200', 'hover:bg-slate-100', 'dark:hover:bg-slate-800'];
+
+            const navigationItems = [
+                { id: 'home', el: btnHome, mEl: mHome },
+                { id: 'archive', el: btnArchive, mEl: mArchive },
+                { id: 'contact', el: btnContact, mEl: mContact }
+            ];
+
+            navigationItems.forEach(item => {
+                if (item.id === activeId) {
+                    // Terapkan Gaya Aktif Desktop
+                    if (item.el) {
+                        activeDesktopClasses.forEach(c => item.el.classList.add(c));
+                        inactiveDesktopClasses.forEach(c => item.el.classList.remove(c));
+                    }
+                    // Terapkan Gaya Aktif Mobile
+                    if (item.mEl) {
+                        activeMobileClasses.forEach(c => item.mEl.classList.add(c));
+                        inactiveMobileClasses.forEach(c => item.mEl.classList.remove(c));
+                    }
+                } else {
+                    // Terapkan Gaya Tidak Aktif Desktop
+                    if (item.el) {
+                        activeDesktopClasses.forEach(c => item.el.classList.remove(c));
+                        inactiveDesktopClasses.forEach(c => item.el.classList.add(c));
+                    }
+                    // Terapkan Gaya Tidak Aktif Mobile
+                    if (item.mEl) {
+                        activeMobileClasses.forEach(c => item.mEl.classList.remove(c));
+                        inactiveMobileClasses.forEach(c => item.mEl.classList.add(c));
+                    }
+                }
+            });
+        }
+
+        // --- MANAJEMEN HERO CAROUSEL ---
+        let currentSlideIndex = 0;
+        let slideInterval;
+
+        function showSlide(index) {
+            const slides = document.querySelectorAll('.carousel-slide');
+            const dots = document.querySelectorAll('.carousel-dot');
+            
+            if (index >= slides.length) currentSlideIndex = 0;
+            else if (index < 0) currentSlideIndex = slides.length - 1;
+            else currentSlideIndex = index;
+
+            // Efek transisi halus opacity
+            slides.forEach((slide, idx) => {
+                if (idx === currentSlideIndex) {
+                    slide.classList.remove('opacity-0', 'pointer-events-none');
+                    slide.classList.add('opacity-100');
+                } else {
+                    slide.classList.remove('opacity-100');
+                    slide.classList.add('opacity-0', 'pointer-events-none');
+                }
+            });
+
+            // Update indikator dots
+            dots.forEach((dot, idx) => {
+                if (idx === currentSlideIndex) {
+                    dot.classList.add('bg-white', 'w-6');
+                    dot.classList.remove('bg-white/50', 'w-3');
+                } else {
+                    dot.classList.remove('bg-white', 'w-6');
+                    dot.classList.add('bg-white/50', 'w-3');
+                }
+            });
+        }
+
+        function nextSlide() {
+            showSlide(currentSlideIndex + 1);
+            resetAutoplay();
+        }
+
+        function prevSlide() {
+            showSlide(currentSlideIndex - 1);
+            resetAutoplay();
+        }
+
+        function setSlide(index) {
+            showSlide(index);
+            resetAutoplay();
+        }
+
+        function startAutoplay() {
+            slideInterval = setInterval(() => {
+                showSlide(currentSlideIndex + 1);
+            }, 6000); // Geser otomatis setiap 6 detik
+        }
+
+        function resetAutoplay() {
+            clearInterval(slideInterval);
+            startAutoplay();
+        }
+
+        // State Manajemen Navigasi (SPA)
+        let navigationHistory = ['home'];
+
+        // Ketika halaman dimuat pertama kali
+        window.onload = function () {
+            initTheme();
+            renderLatestNews();
+            renderSidebarArchive();
+            renderArchivePage();
+            setupCategoryFilters();
+            showSlide(0);
+            startAutoplay();
+            updateNavbarActiveState('home'); // Set beranda aktif saat pertama masuk
+        };
+
+        // Render 6 Berita Terbaru di Beranda
+        function renderLatestNews() {
+            const container = document.getElementById('latest-news-container');
+            container.innerHTML = '';
+            
+            // Mengambil 6 Berita Pertama
+            const latestSix = articlesDatabase.slice(0, 6);
+
+            latestSix.forEach(article => {
+                const card = `
+                    <div class="bg-white dark:bg-slate-900 rounded-3xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group cursor-pointer flex flex-col h-full" 
+                         onclick="viewArticle(${article.id})">
+                        <div class="aspect-16-9 overflow-hidden relative bg-slate-100 dark:bg-slate-800">
+                            <img src="${article.image}" alt="${article.title}" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                 onerror="this.src='https://placehold.co/600x338?text=Al+Muhsin+News'">
+                            <span class="absolute top-4 left-4 bg-primary-600 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg">
+                                ${article.category}
+                            </span>
+                        </div>
+                        <div class="p-5 flex flex-col flex-grow">
+                            <span class="text-xs text-slate-400 dark:text-slate-500 font-medium mb-2 inline-block">${article.date}</span>
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors line-clamp-2 leading-snug mb-2">
+                                ${article.title}
+                            </h3>
+                            <p class="text-sm text-slate-500 dark:text-slate-400 line-clamp-2 mb-4">
+                                ${article.highlight}
+                            </p>
+                            <div class="mt-auto pt-3 border-t border-slate-50 dark:border-slate-800/50 flex items-center justify-between text-xs font-semibold text-primary-600 dark:text-primary-400">
+                                <span>Selengkapnya</span>
+                                <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += card;
+            });
+        }
+
+        // Render Semua Berita di Sidebar Beranda (Selengkapnya)
+        function renderSidebarArchive() {
+            const container = document.getElementById('sidebar-archive-container');
+            container.innerHTML = '';
+
+            articlesDatabase.forEach(article => {
+                const item = `
+                    <div class="flex gap-3 p-2 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-pointer group" onclick="viewArticle(${article.id})">
+                        <div class="w-20 h-14 rounded-lg overflow-hidden flex-shrink-0 bg-slate-100 dark:bg-slate-800">
+                            <img src="${article.image}" alt="${article.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <div class="flex flex-col justify-center min-w-0">
+                            <span class="text-[10px] font-bold text-primary-600 dark:text-primary-400 uppercase tracking-tight">${article.category}</span>
+                            <h4 class="text-xs font-bold text-slate-800 dark:text-slate-200 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors line-clamp-2 leading-tight">
+                                ${article.title}
+                            </h4>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += item;
+            });
+        }
+
+        // Setup Tombol Filter Kategori di Halaman Semua Berita
+        let selectedCategory = "Semua";
+        function setupCategoryFilters() {
+            const container = document.getElementById('category-filters');
+            
+            // Kumpulkan kategori unik
+            const categories = ["Semua", ...new Set(articlesDatabase.map(a => a.category))];
+            
+            renderFilters(container, categories);
+        }
+
+        function renderFilters(container, categories) {
+            container.innerHTML = '';
+            categories.forEach(cat => {
+                const isActive = cat === selectedCategory;
+                const btnClass = isActive 
+                    ? "bg-primary-600 text-white shadow-md shadow-primary-600/20" 
+                    : "bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800";
+                
+                const btn = `
+                    <button onclick="setCategory('${cat}')" 
+                            class="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all ${btnClass}">
+                        ${cat}
+                    </button>
+                `;
+                container.innerHTML += btn;
+            });
+        }
+
+        function setCategory(cat) {
+            selectedCategory = cat;
+            setupCategoryFilters();
+            filterArchive();
+        }
+
+        // Render Halaman Semua Berita (Arsip Lengkap)
+        function renderArchivePage(filteredList = articlesDatabase) {
+            const grid = document.getElementById('archive-news-grid');
+            const noFound = document.getElementById('no-news-found');
+            grid.innerHTML = '';
+
+            if (filteredList.length === 0) {
+                noFound.classList.remove('hidden');
+                grid.classList.add('hidden');
+                return;
+            } else {
+                noFound.classList.add('hidden');
+                grid.classList.remove('hidden');
+            }
+
+            filteredList.forEach(article => {
+                const card = `
+                    <div class="bg-white dark:bg-slate-900 rounded-3xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group cursor-pointer flex flex-col h-full" 
+                         onclick="viewArticle(${article.id})">
+                        <div class="aspect-16-9 overflow-hidden relative bg-slate-100 dark:bg-slate-800">
+                            <img src="${article.image}" alt="${article.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <span class="absolute top-4 left-4 bg-primary-600 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg">
+                                ${article.category}
+                            </span>
+                        </div>
+                        <div class="p-5 flex flex-col flex-grow">
+                            <span class="text-xs text-slate-400 dark:text-slate-500 font-medium mb-2 inline-block">${article.date}</span>
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors line-clamp-2 leading-snug mb-2">
+                                ${article.title}
+                            </h3>
+                            <p class="text-sm text-slate-500 dark:text-slate-400 line-clamp-2 mb-4">
+                                ${article.highlight}
+                            </p>
+                            <div class="mt-auto pt-3 border-t border-slate-50 dark:border-slate-800/50 flex items-center justify-between text-xs font-semibold text-primary-600 dark:text-primary-400">
+                                <span>Selengkapnya</span>
+                                <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += card;
+            });
+        }
+
+        // Filter berita berdasarkan pencarian & kategori
+        function filterArchive() {
+            const searchQuery = document.getElementById('archive-search').value.toLowerCase();
+            
+            const filtered = articlesDatabase.filter(article => {
+                const matchCategory = selectedCategory === "Semua" || article.category === selectedCategory;
+                const matchSearch = article.title.toLowerCase().includes(searchQuery) || 
+                                    article.highlight.toLowerCase().includes(searchQuery);
+                return matchCategory && matchSearch;
+            });
+
+            renderArchivePage(filtered);
+        }
+
+        // Fungsi Pencarian Sidebar Beranda
+        function handleSidebarSearch(event) {
+            if (event.key === 'Enter') {
+                triggerSidebarSearch();
+            }
+        }
+
+        function triggerSidebarSearch() {
+            const query = document.getElementById('sidebar-search').value;
+            document.getElementById('archive-search').value = query;
+            selectedCategory = "Semua";
+            setupCategoryFilters();
+            filterArchive();
+            navigateTo('archive');
+        }
+
+        // SPA Navigation Logic
+        function navigateTo(pageId) {
+            // Sembunyikan semua halaman terlebih dahulu
+            document.getElementById('page-home').classList.add('hidden');
+            document.getElementById('page-archive').classList.add('hidden');
+            document.getElementById('page-detail').classList.add('hidden');
+
+            // Tampilkan halaman target
+            const activePage = document.getElementById(`page-${pageId}`);
+            if (activePage) {
+                activePage.classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // Tambah ke history jika bukan halaman yang sama di ujung
+                if (navigationHistory[navigationHistory.length - 1] !== pageId) {
+                    navigationHistory.push(pageId);
+                }
+
+                // Update Visual Aktif di Navigasi Menu
+                updateNavbarActiveState(pageId);
+            }
+        }
+
+        // Fungsi Kembali (Back Button)
+        function navigateBack() {
+            if (navigationHistory.length > 1) {
+                navigationHistory.pop(); // Hapus halaman saat ini
+                const prevPage = navigationHistory[navigationHistory.length - 1];
+                
+                // Navigasi ke halaman sebelumnya tanpa menambah history baru
+                document.getElementById('page-home').classList.add('hidden');
+                document.getElementById('page-archive').classList.add('hidden');
+                document.getElementById('page-detail').classList.add('hidden');
+                
+                document.getElementById(`page-${prevPage}`).classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                // Kembalikan efek kapsul navbar ke halaman sebelumnya
+                updateNavbarActiveState(prevPage);
+            } else {
+                navigateTo('home');
+            }
+        }
+
+        // Lihat Detail Berita (Mengisi data dinamis ke template detail berita)
+        function viewArticle(id) {
+            const article = articlesDatabase.find(a => a.id === id);
+            if (!article) return;
+
+            // Isi Data
+            document.getElementById('detail-breadcrumb-title').innerText = article.title;
+            document.getElementById('detail-category').innerText = article.category;
+            document.getElementById('detail-title').innerText = article.title;
+            document.getElementById('detail-author').innerText = article.author;
+            document.getElementById('detail-author-avatar').innerText = article.author.charAt(0);
+            document.getElementById('detail-date').innerText = article.date;
+            document.getElementById('detail-image').src = article.image;
+            document.getElementById('detail-content').innerHTML = article.content;
+
+            // Render Berita Rekomendasi (3 Berita Acak selain berita saat ini)
+            renderRelatedNews(article.id, article.category);
+
+            // Tampilkan Halaman Detail & bersihkan status navigasi karena kita sedang di dalam artikel
+            navigateTo('detail');
+            updateNavbarActiveState('archive'); // Menjaga menu archive menyala secara halus saat membaca
+        }
+
+        // Menampilkan 3 Berita Rekomendasi secara acak dari database (selain berita aktif)
+        function renderRelatedNews(currentId, category) {
+            const relatedContainer = document.getElementById('detail-related-news');
+            relatedContainer.innerHTML = '';
+
+            // Filter keluar berita yang sedang aktif dibaca agar tidak direkomendasikan kembali
+            let pool = articlesDatabase.filter(a => a.id !== currentId);
+
+            // Melakukan pengacakan penuh (Fisher-Yates Shuffle) untuk keacakan maksimal dan adil
+            for (let i = pool.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [pool[i], pool[j]] = [pool[j], pool[i]];
+            }
+
+            // Ambil 3 berita teratas dari hasil pengacakan acak tersebut
+            const randomThree = pool.slice(0, 3);
+
+            randomThree.forEach(article => {
+                const card = `
+                    <div class="bg-white dark:bg-slate-900 rounded-2xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800 hover:shadow-md transition-all cursor-pointer group"
+                         onclick="viewArticle(${article.id})">
+                        <div class="aspect-16-9 overflow-hidden relative bg-slate-100 dark:bg-slate-800">
+                            <img src="${article.image}" alt="${article.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                 onerror="this.src='https://placehold.co/600x338?text=Al+Muhsin+News'">
+                        </div>
+                        <div class="p-4">
+                            <span class="text-[10px] font-bold text-primary-600 dark:text-primary-400 uppercase tracking-wide inline-block mb-1">${article.category}</span>
+                            <h4 class="text-sm font-bold text-slate-800 dark:text-slate-200 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors line-clamp-2 leading-snug">
+                                ${article.title}
+                            </h4>
+                        </div>
+                    </div>
+                `;
+                relatedContainer.innerHTML += card;
+            });
+        }
+
+        // Toggle Menu Mobile
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Scroll halus ke footer & buat kontak aktif
+        function scrollToFooter() {
+            document.getElementById('main-footer').scrollIntoView({ behavior: 'smooth' });
+            updateNavbarActiveState('contact');
+        }
+
+        // Fitur Salin Link ke Clipboard
+        function copyToClipboard() {
+            const dummyLink = window.location.href + "#news-id-" + Math.floor(Math.random() * 100);
+            
+            // Menggunakan execCommand sesuai standard instruksi
+            const el = document.createElement('textarea');
+            el.value = dummyLink;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+
+            // Tampilkan toast kustom
+            showToast("Tautan berita berhasil disalin ke clipboard!");
+        }
+
+        // Show custom UI toast
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const msgSpan = document.getElementById('toast-message');
+            msgSpan.innerText = message;
+            
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
